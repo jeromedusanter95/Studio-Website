@@ -136,7 +136,8 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
 .app-card:hover { border-color:var(--cyan-border); transform:translateY(-4px); box-shadow:0 20px 50px rgba(0,229,255,0.07); }
 .app-card:hover::before { transform:scaleX(1); }
 
-.app-icon { width:52px; height:52px; border-radius:13px; background:var(--navy-light); display:flex; align-items:center; justify-content:center; font-size:26px; margin-bottom:18px; }
+.app-icon { width:52px; height:52px; border-radius:13px; overflow:hidden; margin-bottom:18px; }
+.app-icon img { width:100%; height:100%; object-fit:cover; display:block; }
 .app-name { font-family:'Syne',sans-serif; font-weight:700; font-size:17px; color:var(--white); margin-bottom:8px; }
 .app-desc { font-size:11px; line-height:1.7; color:var(--text-dim); margin-bottom:18px; }
 .app-dl { font-size:10.5px; color:var(--cyan); display:flex; align-items:center; gap:6px; }
@@ -285,21 +286,21 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
     <div class="apps-grid">
 
       <a href="/apps/space-blaster.html" class="app-card">
-        <div class="app-icon">🚀</div>
+        <div class="app-icon"><img src="/space_blaster_icon.png" alt="Space Blaster"></div>
         <div class="app-name">Space Blaster</div>
         <p class="app-desc" data-en="Remake of the iconic Nokia Space Impact from the 2000s. Retro shooter, modern polish." data-fr="Remake du légendaire Space Impact de Nokia des années 2000. Shooter rétro, finition moderne.">Remake of the iconic Nokia Space Impact from the 2000s. Retro shooter, modern polish.</p>
         <div class="app-dl"><span class="app-dl-num">30 000</span> <span data-en="downloads" data-fr="téléchargements">downloads</span> &nbsp;↓</div>
       </a>
 
       <a href="/apps/parallel-hearts.html" class="app-card">
-        <div class="app-icon">💜</div>
+        <div class="app-icon"><img src="/parallel_hearts_icon.png" alt="Parallel Hearts"></div>
         <div class="app-name">Parallel Hearts</div>
         <p class="app-desc" data-en="Game Boy-inspired puzzle game. Control two characters simultaneously across 50 levels." data-fr="Jeu de puzzle inspiré Game Boy. Contrôlez deux personnages simultanément sur 50 niveaux.">Game Boy-inspired puzzle game. Control two characters simultaneously across 50 levels.</p>
         <div class="app-dl"><span class="app-dl-num">100</span> <span data-en="downloads" data-fr="téléchargements">downloads</span> &nbsp;↓</div>
       </a>
 
       <a href="/apps/wishbone-snap.html" class="app-card">
-        <div class="app-icon">🦴</div>
+        <div class="app-icon"><img src="/wishbone_snap_icon.png" alt="Wishbone Snap"></div>
         <div class="app-name">Wishbone Snap</div>
         <p class="app-desc" data-en="A digital revival of the classic wishbone-breaking tradition. Fun, simple, satisfying." data-fr="Une version digitale de la tradition du wishbone. Simple, fun et satisfaisante.">A digital revival of the classic wishbone-breaking tradition. Fun, simple, satisfying.</p>
         <div class="app-dl"><span class="app-dl-num">50</span> <span data-en="downloads" data-fr="téléchargements">downloads</span> &nbsp;↓</div>

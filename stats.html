@@ -118,7 +118,8 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
 .app-stat-row { display:grid; grid-template-columns:180px 1fr 100px; gap:20px; align-items:center; padding:20px 0; border-bottom:1px solid rgba(0,229,255,0.06); }
 .app-stat-row:last-child { border-bottom:none; }
 .app-stat-name { display:flex; align-items:center; gap:10px; }
-.app-stat-icon { font-size:22px; }
+.app-stat-icon { width:22px; height:22px; border-radius:5px; overflow:hidden; }
+.app-stat-icon img { width:100%; height:100%; object-fit:cover; display:block; }
 .app-stat-label { font-size:12px; color:var(--white); font-weight:500; }
 .bar-track { height:6px; background:rgba(0,229,255,0.06); border-radius:0; flex:1; overflow:hidden; }
 .bar-fill { height:100%; border-radius:0; background:linear-gradient(90deg,var(--cyan),var(--green)); animation:barGrow 1.4s ease forwards; }
@@ -227,7 +228,7 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
         <div class="section-label" data-en="// Downloads by app" data-fr="// Téléchargements par app">// Downloads by app</div>
         <div class="app-stat-row">
           <div class="app-stat-name">
-            <span class="app-stat-icon">🚀</span>
+            <span class="app-stat-icon"><img src="/space_blaster_icon.png" alt="Space Blaster"></span>
             <span class="app-stat-label">Space Blaster</span>
           </div>
           <div class="bar-track"><div class="bar-fill" style="width:97%"></div></div>
@@ -235,7 +236,7 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
         </div>
         <div class="app-stat-row">
           <div class="app-stat-name">
-            <span class="app-stat-icon">💜</span>
+            <span class="app-stat-icon"><img src="/parallel_hearts_icon.png" alt="Parallel Hearts"></span>
             <span class="app-stat-label">Parallel Hearts</span>
           </div>
           <div class="bar-track"><div class="bar-fill" style="width:12%;animation-delay:0.3s"></div></div>
@@ -243,7 +244,7 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
         </div>
         <div class="app-stat-row">
           <div class="app-stat-name">
-            <span class="app-stat-icon">🦴</span>
+            <span class="app-stat-icon"><img src="/wishbone_snap_icon.png" alt="Wishbone Snap"></span>
             <span class="app-stat-label">Wishbone Snap</span>
           </div>
           <div class="bar-track"><div class="bar-fill" style="width:8%;animation-delay:0.6s"></div></div>

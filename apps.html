@@ -103,8 +103,10 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
 .app-big-card.reverse > * { direction:ltr; }
 
 .app-visual { background:var(--navy-mid); border:1px solid var(--cyan-border); padding:48px; display:flex; align-items:center; justify-content:center; aspect-ratio:4/3; position:relative; overflow:hidden; clip-path:polygon(0 0,calc(100%-16px) 0,100% 16px,100% 100%,0 100%); }
-.app-visual-icon { font-size:80px; position:relative; z-index:1; }
-.app-visual-bg { position:absolute; inset:0; opacity:0.07; display:flex; align-items:center; justify-content:center; font-size:200px; }
+.app-visual-icon { position:relative; z-index:1; width:120px; height:120px; border-radius:24px; overflow:hidden; }
+.app-visual-icon img { width:100%; height:100%; object-fit:cover; display:block; }
+.app-visual-bg { position:absolute; inset:0; opacity:0.07; display:flex; align-items:center; justify-content:center; }
+.app-visual-bg img { width:200px; height:200px; }
 .app-visual::after { content:''; position:absolute; top:0; right:0; width:0; height:0; border-style:solid; border-width:0 16px 16px 0; border-color:transparent var(--cyan) transparent transparent; }
 
 .app-info {}
@@ -184,8 +186,8 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
       <!-- SPACE BLASTER -->
       <div class="app-big-card">
         <div class="app-visual">
-          <div class="app-visual-bg">🚀</div>
-          <div class="app-visual-icon">🚀</div>
+          <div class="app-visual-bg"><img src="/space_blaster_icon.png" alt=""></div>
+          <div class="app-visual-icon"><img src="/space_blaster_icon.png" alt="Space Blaster"></div>
         </div>
         <div class="app-info">
           <div class="app-badge" data-en="Game · Retro Shooter" data-fr="Jeu · Shooter Rétro">Game · Retro Shooter</div>
@@ -217,8 +219,8 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
       <!-- PARALLEL HEARTS -->
       <div class="app-big-card reverse">
         <div class="app-visual" style="border-color:rgba(123,94,167,0.4)">
-          <div class="app-visual-bg">💜</div>
-          <div class="app-visual-icon">💜</div>
+          <div class="app-visual-bg"><img src="/parallel_hearts_icon.png" alt=""></div>
+          <div class="app-visual-icon"><img src="/parallel_hearts_icon.png" alt="Parallel Hearts"></div>
         </div>
         <div class="app-info">
           <div class="app-badge" data-en="Game · Puzzle" data-fr="Jeu · Puzzle">Game · Puzzle</div>
@@ -254,8 +256,8 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
       <!-- WISHBONE SNAP -->
       <div class="app-big-card">
         <div class="app-visual" style="border-color:rgba(0,255,157,0.2)">
-          <div class="app-visual-bg">🦴</div>
-          <div class="app-visual-icon">🦴</div>
+          <div class="app-visual-bg"><img src="/wishbone_snap_icon.png" alt=""></div>
+          <div class="app-visual-icon"><img src="/wishbone_snap_icon.png" alt="Wishbone Snap"></div>
         </div>
         <div class="app-info">
           <div class="app-badge" data-en="App · Fun & Casual" data-fr="App · Fun & Casual">App · Fun & Casual</div>
