@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stats — Jérôme Dusanter's Studio</title>
+<meta name="description" content="Live publisher statistics — downloads, impressions, ratings across all Studio apps.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap');
+
+:root {
+  --navy:        #050c1a;
+  --navy-mid:    #0a1628;
+  --navy-light:  #0f2040;
+  --cyan:        #00e5ff;
+  --cyan-dim:    rgba(0,229,255,0.10);
+  --cyan-border: rgba(0,229,255,0.20);
+  --green:       #00ff9d;
+  --amber:       #ffb800;
+  --text:        #c8d8f0;
+  --text-dim:    rgba(200,216,240,0.45);
+  --white:       #f0f8ff;
+  --nav-h:       70px;
+}
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body { background:var(--navy); color:var(--text); font-family:'JetBrains Mono',monospace; overflow-x:hidden; cursor:none; }
+
+body::before {
+  content:''; position:fixed; inset:0;
+  background-image: linear-gradient(rgba(0,229,255,0.025) 1px,transparent 1px), linear-gradient(90deg,rgba(0,229,255,0.025) 1px,transparent 1px);
+  background-size:60px 60px; pointer-events:none; z-index:0;
+}
+.scanline { position:fixed; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--cyan),transparent); opacity:0.10; animation:scanline 10s linear infinite; pointer-events:none; z-index:999; }
+@keyframes scanline { from{top:0} to{top:100vh} }
+
+.cursor { width:10px; height:10px; background:var(--cyan); border-radius:50%; position:fixed; top:0; left:0; pointer-events:none; z-index:9999; mix-blend-mode:screen; }
+.cursor-ring { width:32px; height:32px; border:1px solid rgba(0,229,255,0.35); border-radius:50%; position:fixed; top:0; left:0; pointer-events:none; z-index:9998; }
+
+.blob { position:fixed; border-radius:50%; filter:blur(130px); pointer-events:none; z-index:0; opacity:0.13; }
+.blob-1 { width:560px; height:560px; background:#00e5ff; top:-180px; right:-100px; }
+.blob-2 { width:360px; height:360px; background:#7b5ea7; bottom:60px; left:-80px; }
+
+nav { position:fixed; top:0; left:0; right:0; z-index:100; height:var(--nav-h); display:flex; align-items:center; justify-content:space-between; padding:0 56px; border-bottom:1px solid rgba(0,229,255,0.07); background:rgba(5,12,26,0.82); backdrop-filter:blur(24px); }
+.logo { font-family:'Syne',sans-serif; font-weight:800; color:var(--white); text-decoration:none; display:flex; align-items:center; gap:10px; }
+.logo-mark { width:32px; height:32px; border:1.5px solid var(--cyan); border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:12px; color:var(--cyan); background:var(--cyan-dim); flex-shrink:0; }
+.logo-text .l1 { font-size:14px; line-height:1.1; }
+.logo-text .l2 { font-size:8px; letter-spacing:0.22em; color:var(--cyan); font-weight:400; text-transform:uppercase; display:block; }
+.nav-links { display:flex; gap:28px; list-style:none; align-items:center; }
+.nav-links a { text-decoration:none; color:var(--text-dim); font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase; transition:color 0.2s; position:relative; }
+.nav-links a::after { content:''; position:absolute; bottom:-3px; left:0; right:0; height:1px; background:var(--cyan); transform:scaleX(0); transition:transform 0.2s; }
+.nav-links a:hover,.nav-links a.active { color:var(--cyan); }
+.nav-links a:hover::after,.nav-links a.active::after { transform:scaleX(1); }
+.nav-right { display:flex; align-items:center; gap:12px; }
+.nav-lang { display:flex; gap:2px; }
+.lang-btn { background:none; border:1px solid var(--cyan-border); color:var(--text-dim); font-family:'JetBrains Mono',monospace; font-size:10px; padding:4px 9px; cursor:none; transition:all 0.2s; letter-spacing:0.08em; }
+.lang-btn.active,.lang-btn:hover { background:var(--cyan-dim); color:var(--cyan); border-color:var(--cyan); }
+
+.btn-primary { display:inline-flex; align-items:center; gap:8px; background:var(--cyan); color:var(--navy); font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:500; letter-spacing:0.08em; padding:13px 24px; text-decoration:none; text-transform:uppercase; transition:all 0.25s; clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%); border:none; cursor:none; }
+.btn-primary:hover { background:var(--green); transform:translateY(-2px); box-shadow:0 12px 36px rgba(0,229,255,0.25); }
+.btn-outline { display:inline-flex; align-items:center; gap:8px; border:1px solid var(--cyan-border); color:var(--cyan); font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.08em; padding:12px 24px; text-decoration:none; text-transform:uppercase; transition:all 0.25s; background:var(--cyan-dim); cursor:none; }
+.btn-outline:hover { border-color:var(--cyan); background:rgba(0,229,255,0.16); transform:translateY(-2px); }
+.btn-store { display:inline-flex; align-items:center; gap:10px; border:1px solid rgba(0,229,255,0.14); color:var(--text); background:var(--navy-mid); font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.05em; padding:11px 18px; text-decoration:none; transition:all 0.25s; cursor:none; }
+.btn-store:hover { border-color:var(--cyan-border); color:var(--white); transform:translateY(-2px); }
+
+.section-label { font-size:10px; letter-spacing:0.25em; text-transform:uppercase; color:var(--cyan); margin-bottom:40px; display:flex; align-items:center; gap:14px; }
+.section-label::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,var(--cyan-border),transparent); }
+.live-dot { width:6px; height:6px; background:var(--green); border-radius:50%; animation:pulse 2s infinite; flex-shrink:0; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.7)} }
+.page-wrap { position:relative; z-index:1; }
+
+footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:relative; z-index:1; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:20px; }
+.footer-logo { font-family:'Syne',sans-serif; font-weight:800; font-size:13px; color:var(--text-dim); }
+.footer-logo span { color:var(--cyan); }
+.footer-copy { font-size:9.5px; color:var(--text-dim); letter-spacing:0.06em; text-align:center; line-height:1.7; }
+.footer-links { display:flex; gap:18px; justify-content:flex-end; flex-wrap:wrap; }
+.footer-links a { font-size:9.5px; color:var(--text-dim); text-decoration:none; transition:color 0.2s; letter-spacing:0.08em; text-transform:uppercase; }
+.footer-links a:hover { color:var(--cyan); }
+
+@keyframes fadeUp { to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn { to{opacity:1} }
+@media(max-width:900px) {
+  nav{padding:0 20px;} .nav-links{display:none;}
+  footer{grid-template-columns:1fr;text-align:center;padding:28px 20px;gap:12px;} .footer-links{justify-content:center;}
+}
+
+</style>
+<style>
+.page-hero { padding:calc(var(--nav-h)+60px) 56px 56px; position:relative; z-index:1; border-bottom:1px solid rgba(0,229,255,0.07); }
+.page-hero-inner { max-width:1200px; margin:0 auto; }
+.page-hero h1 { font-family:'Syne',sans-serif; font-weight:800; font-size:clamp(40px,5.5vw,68px); color:var(--white); line-height:1; margin-bottom:14px; }
+.page-hero h1 em { font-style:normal; color:var(--cyan); }
+.page-hero p { font-size:12.5px; line-height:1.85; color:var(--text-dim); max-width:520px; }
+.live-notice { display:inline-flex; align-items:center; gap:8px; margin-top:18px; font-size:10px; letter-spacing:0.12em; color:var(--text-dim); }
+
+.stats-main { padding:64px 56px; position:relative; z-index:1; }
+.stats-inner { max-width:1200px; margin:0 auto; }
+
+/* Big KPI row */
+.kpi-row { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; margin-bottom:48px; }
+.kpi { background:var(--navy-mid); border:1px solid rgba(0,229,255,0.08); padding:28px 24px; position:relative; overflow:hidden; transition:border-color 0.3s; }
+.kpi:hover { border-color:var(--cyan-border); }
+.kpi::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; }
+.kpi.cyan::before { background:var(--cyan); }
+.kpi.green::before { background:var(--green); }
+.kpi.amber::before { background:var(--amber); }
+.kpi.purple::before { background:#7b5ea7; }
+.kpi-lbl { font-size:9.5px; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-dim); margin-bottom:12px; }
+.kpi-val { font-family:'Syne',sans-serif; font-weight:800; font-size:36px; color:var(--white); line-height:1; margin-bottom:8px; }
+.kpi-val .unit { font-size:20px; color:var(--cyan); }
+.kpi-val.green-val .unit { color:var(--green); }
+.kpi-val.amber-val .unit { color:var(--amber); }
+.kpi-sub { font-size:10px; color:var(--text-dim); }
+
+/* Per-app breakdown */
+.breakdown { margin-bottom:56px; }
+.breakdown-title { font-family:'Syne',sans-serif; font-weight:700; font-size:20px; color:var(--white); margin-bottom:24px; }
+.app-stat-row { display:grid; grid-template-columns:180px 1fr 100px; gap:20px; align-items:center; padding:20px 0; border-bottom:1px solid rgba(0,229,255,0.06); }
+.app-stat-row:last-child { border-bottom:none; }
+.app-stat-name { display:flex; align-items:center; gap:10px; }
+.app-stat-icon { font-size:22px; }
+.app-stat-label { font-size:12px; color:var(--white); font-weight:500; }
+.bar-track { height:6px; background:rgba(0,229,255,0.06); border-radius:0; flex:1; overflow:hidden; }
+.bar-fill { height:100%; border-radius:0; background:linear-gradient(90deg,var(--cyan),var(--green)); animation:barGrow 1.4s ease forwards; }
+@keyframes barGrow { from{width:0} }
+.app-stat-num { font-family:'Syne',sans-serif; font-weight:700; font-size:14px; color:var(--cyan); text-align:right; }
+
+/* Note on live data */
+.data-note { background:var(--navy-mid); border:1px solid rgba(0,229,255,0.10); padding:24px 28px; display:flex; align-items:flex-start; gap:16px; margin-bottom:48px; }
+.data-note-icon { font-size:20px; flex-shrink:0; }
+.data-note p { font-size:11.5px; line-height:1.8; color:var(--text-dim); }
+.data-note strong { color:var(--text); }
+
+/* Platform split */
+.platform-split { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-bottom:48px; }
+.platform-card { background:var(--navy-mid); border:1px solid rgba(0,229,255,0.08); padding:32px; }
+.platform-name { font-family:'Syne',sans-serif; font-weight:700; font-size:18px; color:var(--white); margin-bottom:6px; }
+.platform-sub { font-size:10px; color:var(--text-dim); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:20px; }
+.platform-stat { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(0,229,255,0.06); font-size:11.5px; }
+.platform-stat:last-child { border-bottom:none; }
+.platform-stat span:last-child { color:var(--cyan); font-family:'Syne',sans-serif; font-weight:700; }
+
+@media(max-width:900px){
+  .page-hero,.stats-main { padding-left:20px; padding-right:20px; }
+  .kpi-row { grid-template-columns:1fr 1fr; }
+  .app-stat-row { grid-template-columns:1fr 60px; }
+  .app-stat-row .bar-track { display:none; }
+  .platform-split { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+<div class="scanline"></div>
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="ring"></div>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+
+<nav>
+  <a href="/" class="logo">
+    <div class="logo-mark">JD</div>
+    <div class="logo-text"><span class="l1">Jérôme Dusanter</span><span class="l2">Studio</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/" data-en="Home" data-fr="Accueil">Home</a></li>
+    <li><a href="/apps.html" data-en="Apps" data-fr="Apps">Apps</a></li>
+    <li><a href="/freelance.html" data-en="Freelance" data-fr="Freelance">Freelance</a></li>
+    <li><a href="/stats.html" class="active">Stats</a></li>
+    <li><a href="/contact.html" data-en="Contact" data-fr="Contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-lang">
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="fr">FR</button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="section-label" data-en="// Publisher dashboard" data-fr="// Tableau de bord éditeur">// Publisher dashboard</div>
+      <h1 data-en="Studio <em>Stats</em>." data-fr="Stats du <em>Studio</em>.">Studio <em>Stats</em>.</h1>
+      <p data-en="Aggregated metrics across all published apps on Google Play and the App Store. Updated regularly from the developer consoles." data-fr="Métriques agrégées de toutes les apps publiées sur Google Play et l'App Store. Mises à jour régulièrement depuis les consoles développeur.">Aggregated metrics across all published apps on Google Play and the App Store. Updated regularly from the developer consoles.</p>
+      <div class="live-notice">
+        <span class="live-dot"></span>
+        <span data-en="Data sourced from Google Play Console & App Store Connect" data-fr="Données issues de Google Play Console & App Store Connect">Data sourced from Google Play Console & App Store Connect</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-main">
+    <div class="stats-inner">
+
+      <!-- KPI row -->
+      <div class="kpi-row">
+        <div class="kpi cyan">
+          <div class="kpi-lbl" data-en="Total Downloads" data-fr="Téléchargements totaux">Total Downloads</div>
+          <div class="kpi-val"><span id="k1">0</span><span class="unit">+</span></div>
+          <div class="kpi-sub" data-en="Across all apps & platforms" data-fr="Toutes apps & plateformes">Across all apps & platforms</div>
+        </div>
+        <div class="kpi green">
+          <div class="kpi-lbl" data-en="Published Apps" data-fr="Apps publiées">Published Apps</div>
+          <div class="kpi-val green-val"><span id="k2">0</span><span class="unit"> apps</span></div>
+          <div class="kpi-sub" data-en="Play Store + App Store" data-fr="Play Store + App Store">Play Store + App Store</div>
+        </div>
+        <div class="kpi amber">
+          <div class="kpi-lbl" data-en="Average Rating" data-fr="Note moyenne">Average Rating</div>
+          <div class="kpi-val amber-val">4<span class="unit">.7 ★</span></div>
+          <div class="kpi-sub" data-en="Combined store rating" data-fr="Note combinée">Combined store rating</div>
+        </div>
+        <div class="kpi purple">
+          <div class="kpi-lbl" data-en="Countries reached" data-fr="Pays atteints">Countries reached</div>
+          <div class="kpi-val"><span id="k4">0</span><span class="unit">+</span></div>
+          <div class="kpi-sub" data-en="Global distribution" data-fr="Distribution mondiale">Global distribution</div>
+        </div>
+      </div>
+
+      <!-- Data note -->
+      <div class="data-note">
+        <div class="data-note-icon">ℹ️</div>
+        <p data-en="<strong>About these numbers:</strong> Download counts are cumulative lifetime figures from Google Play Console and App Store Connect. This page will be connected to live APIs (Google Play Developer Reporting API + App Store Connect API) for automated updates. Ad impression data will be added once AdMob integration is complete." data-fr="<strong>À propos de ces chiffres :</strong> Les téléchargements sont des données cumulatives depuis Google Play Console et App Store Connect. Cette page sera connectée aux APIs live pour des mises à jour automatisées. Les données d'impressions publicitaires seront ajoutées une fois l'intégration AdMob complète."><strong>About these numbers:</strong> Download counts are cumulative lifetime figures from Google Play Console and App Store Connect. This page will be connected to live APIs (Google Play Developer Reporting API + App Store Connect API) for automated updates. Ad impression data will be added once AdMob integration is complete.</p>
+      </div>
+
+      <!-- Per-app breakdown -->
+      <div class="breakdown">
+        <div class="section-label" data-en="// Downloads by app" data-fr="// Téléchargements par app">// Downloads by app</div>
+        <div class="app-stat-row">
+          <div class="app-stat-name">
+            <span class="app-stat-icon">🚀</span>
+            <span class="app-stat-label">Space Blaster</span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:97%"></div></div>
+          <div class="app-stat-num">30 000+</div>
+        </div>
+        <div class="app-stat-row">
+          <div class="app-stat-name">
+            <span class="app-stat-icon">💜</span>
+            <span class="app-stat-label">Parallel Hearts</span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:12%;animation-delay:0.3s"></div></div>
+          <div class="app-stat-num">100+</div>
+        </div>
+        <div class="app-stat-row">
+          <div class="app-stat-name">
+            <span class="app-stat-icon">🦴</span>
+            <span class="app-stat-label">Wishbone Snap</span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:8%;animation-delay:0.6s"></div></div>
+          <div class="app-stat-num">50+</div>
+        </div>
+      </div>
+
+      <!-- Platform split -->
+      <div class="section-label" data-en="// By platform" data-fr="// Par plateforme">// By platform</div>
+      <div class="platform-split">
+        <div class="platform-card">
+          <div class="platform-name">🤖 Google Play</div>
+          <div class="platform-sub" data-en="Android — all apps published" data-fr="Android — toutes les apps publiées">Android — all apps published</div>
+          <div class="platform-stat"><span data-en="Published apps" data-fr="Apps publiées">Published apps</span><span>3</span></div>
+          <div class="platform-stat"><span data-en="Main platform downloads" data-fr="Téléchargements plateforme principale">Main platform downloads</span><span>~30 000+</span></div>
+          <div class="platform-stat"><span data-en="Developer account" data-fr="Compte développeur">Developer account</span><span data-en="Organization ✓" data-fr="Organisation ✓">Organization ✓</span></div>
+        </div>
+        <div class="platform-card">
+          <div class="platform-name">🍎 App Store</div>
+          <div class="platform-sub" data-en="iOS — all apps published" data-fr="iOS — toutes les apps publiées">iOS — all apps published</div>
+          <div class="platform-stat"><span data-en="Published apps" data-fr="Apps publiées">Published apps</span><span>3</span></div>
+          <div class="platform-stat"><span data-en="Growing audience" data-fr="Audience en croissance">Growing audience</span><span>↑</span></div>
+          <div class="platform-stat"><span data-en="Developer account" data-fr="Compte développeur">Developer account</span><span data-en="Organization ✓" data-fr="Organisation ✓">Organization ✓</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">Jérôme Dusanter's <span>Studio</span></div>
+  <div class="footer-copy">© 2025 Jérôme Dusanter's Studio — Paris, France</div>
+  <div class="footer-links">
+    <a href="/apps.html" data-en="Apps" data-fr="Apps">Apps</a>
+    <a href="/freelance.html" data-en="Freelance" data-fr="Freelance">Freelance</a>
+    <a href="/contact.html" data-en="Contact" data-fr="Contact">Contact</a>
+    <a href="/app-ads.txt">app-ads.txt</a>
+  </div>
+</footer>
+
+<script>
+// ── Cursor ──
+const cur = document.getElementById('cur');
+const ring = document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  cur.style.transform=`translate(${mx-5}px,${my-5}px)`;
+});
+(function animRing(){
+  rx+=(mx-rx)*0.13; ry+=(my-ry)*0.13;
+  ring.style.transform=`translate(${rx-16}px,${ry-16}px)`;
+  requestAnimationFrame(animRing);
+})();
+
+// ── i18n ──
+let lang = localStorage.getItem('lang')||'en';
+function setLang(l){
+  lang=l; localStorage.setItem('lang',l);
+  document.querySelectorAll('[data-en]').forEach(el=>{
+    const val=el.getAttribute('data-'+l);
+    if(!val) return;
+    if(el.tagName==='INPUT'||el.tagName==='TEXTAREA') el.placeholder=val;
+    else el.innerHTML=val;
+  });
+  document.querySelectorAll('.lang-btn').forEach(b=>{
+    b.classList.toggle('active',b.dataset.lang===l);
+  });
+}
+document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+setLang(lang);
+
+// ── Nav active ──
+const path = window.location.pathname;
+document.querySelectorAll('.nav-links a').forEach(a=>{
+  const href=a.getAttribute('href');
+  if(href===path||(href!=='/'&&path.startsWith(href))) a.classList.add('active');
+});
+
+// ── Intersection observer for animations ──
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.style.animationPlayState='running'; io.unobserve(e.target); }
+  });
+},{threshold:0.15});
+document.querySelectorAll('.anim').forEach(el=>{
+  el.style.animationPlayState='paused'; io.observe(el);
+});
+
+// ── Count-up utility ──
+function countUp(el,target,decimals=0,dur=1800){
+  const step=target/(dur/16);
+  let v=0;
+  const t=setInterval(()=>{
+    v+=step; if(v>=target){v=target;clearInterval(t);}
+    el.textContent=decimals?v.toFixed(decimals):Math.floor(v).toLocaleString('fr-FR');
+  },16);
+}
+
+</script>
+<script>
+const io2 = new IntersectionObserver(e=>{
+  if(e[0].isIntersecting){
+    countUp(document.getElementById('k1'),30150);
+    countUp(document.getElementById('k2'),3);
+    countUp(document.getElementById('k4'),50);
+    io2.disconnect();
+  }
+},{threshold:0.2});
+io2.observe(document.querySelector('.kpi-row'));
+</script>
+</body>
+</html>
