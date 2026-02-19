@@ -1,0 +1,44 @@
+{
+  "last_updated": "2026-02-19",
+  "totals": {
+    "downloads": 30150,
+    "revenue_usd": 346.01,
+    "impressions": 97473,
+    "clicks": 8376,
+    "published_apps": 3,
+    "average_rating": 4.7,
+    "countries": 50
+  },
+  "apps": {
+    "space_blaster": {
+      "name": "Space Blaster",
+      "icon": "/space_blaster_icon.png",
+      "downloads": 30000,
+      "revenue_usd": 344.12,
+      "impressions": 96654,
+      "clicks": 8354,
+      "ecpm_usd": 3.56,
+      "ctr": "8.64%"
+    },
+    "parallel_hearts": {
+      "name": "Parallel Hearts",
+      "icon": "/parallel_hearts_icon.png",
+      "downloads": 100,
+      "revenue_usd": 0.90,
+      "impressions": 142,
+      "clicks": 8,
+      "ecpm_usd": 6.34,
+      "ctr": "5.63%"
+    },
+    "wishbone_snap": {
+      "name": "Wishbone Snap",
+      "icon": "/wishbone_snap_icon.png",
+      "downloads": 50,
+      "revenue_usd": 0.99,
+      "impressions": 677,
+      "clicks": 14,
+      "ecpm_usd": 1.46,
+      "ctr": "2.07%"
+    }
+  }
+}
