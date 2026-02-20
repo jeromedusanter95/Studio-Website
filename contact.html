@@ -96,7 +96,8 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
 .contact-methods { display:flex; flex-direction:column; gap:2px; }
 .contact-method { display:flex; align-items:center; gap:16px; padding:18px; background:var(--navy-mid); border:1px solid rgba(0,229,255,0.07); text-decoration:none; transition:all 0.25s; }
 .contact-method:hover { border-color:var(--cyan-border); transform:translateX(6px); }
-.contact-method-icon { font-size:20px; width:40px; text-align:center; flex-shrink:0; }
+.contact-method-icon { font-size:20px; width:40px; text-align:center; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+.contact-method-icon svg { width:20px; height:20px; fill:var(--cyan); transition:fill 0.2s; }
 .contact-method-content {}
 .contact-method-lbl { font-size:9px; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-dim); margin-bottom:3px; }
 .contact-method-val { font-size:13px; color:var(--white); font-weight:500; }
@@ -174,42 +175,42 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
 
         <div class="contact-methods">
           <a href="mailto:dusanter.jerome@gmail.com" class="contact-method">
-            <div class="contact-method-icon">✉</div>
+            <div class="contact-method-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
             <div class="contact-method-content">
               <div class="contact-method-lbl" data-en="Email" data-fr="Email">Email</div>
               <div class="contact-method-val">dusanter.jerome@gmail.com</div>
             </div>
           </a>
           <a href="https://play.google.com/store/apps/developer?id=Jerome+Dusanter+Studio" target="_blank" class="contact-method">
-            <div class="contact-method-icon">🤖</div>
+            <div class="contact-method-icon"><svg viewBox="0 0 24 24"><path d="M3.18 20.54L11.46 2.1a.55.55 0 01.96 0l2.72 6.08a.55.55 0 01-.26.74L7.5 12.8l3.56 7.74a.55.55 0 01-.49.78H3.67a.55.55 0 01-.49-.78zm9.34.68l-2.56-5.56 6.44-3.06 3.92 8.62H13.01a.55.55 0 01-.49-.78v.78z"/></svg></div>
             <div class="contact-method-content">
               <div class="contact-method-lbl">Google Play</div>
               <div class="contact-method-val">Jerome Dusanter Studio</div>
             </div>
           </a>
           <a href="https://apps.apple.com/fr/developer/jerome-dusanter/id1795706328" target="_blank" class="contact-method">
-            <div class="contact-method-icon">🍎</div>
+            <div class="contact-method-icon"><svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg></div>
             <div class="contact-method-content">
               <div class="contact-method-lbl">App Store</div>
               <div class="contact-method-val">Jerome Dusanter</div>
             </div>
           </a>
           <a href="https://www.linkedin.com/in/j%C3%A9r%C3%B4me-dusanter-265289111/" target="_blank" class="contact-method">
-            <div class="contact-method-icon">💼</div>
+            <div class="contact-method-icon"><svg viewBox="0 0 24 24"><path d="M20.45 20.45H16.9v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></div>
             <div class="contact-method-content">
               <div class="contact-method-lbl">LinkedIn</div>
               <div class="contact-method-val" data-en="Jérôme Dusanter" data-fr="Jérôme Dusanter">Jérôme Dusanter</div>
             </div>
           </a>
           <a href="https://github.com/jeromedusanter95" target="_blank" class="contact-method">
-            <div class="contact-method-icon">🐙</div>
+            <div class="contact-method-icon"><svg viewBox="0 0 24 24"><path d="M12 .3a12 12 0 00-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5 1 .1-.78.42-1.3.76-1.6-2.67-.31-5.47-1.34-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 016.02 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 011.23 3.22c0 4.61-2.8 5.62-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0012 .3"/></svg></div>
             <div class="contact-method-content">
               <div class="contact-method-lbl">GitHub</div>
               <div class="contact-method-val">jeromedusanter95</div>
             </div>
           </a>
           <div class="contact-method" style="cursor:none; background:transparent; border-color:transparent">
-            <div class="contact-method-icon">📍</div>
+            <div class="contact-method-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg></div>
             <div class="contact-method-content">
               <div class="contact-method-lbl" data-en="Location" data-fr="Localisation">Location</div>
               <div class="contact-method-val">Paris, France · Remote ✓</div>
