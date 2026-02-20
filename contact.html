@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -301,9 +301,9 @@ document.addEventListener('mousemove',e=>{
 })();
 
 // ── i18n ──
-let lang = localStorage.getItem('lang')||(navigator.language.startsWith('fr')?'fr':'en');
+let lang = localStorage.getItem('lang_pref')||(navigator.language.startsWith('fr')?'fr':'en');
 function setLang(l){
-  lang=l; localStorage.setItem('lang',l);
+  lang=l; localStorage.setItem('lang_pref',l); document.documentElement.lang=l;
   document.querySelectorAll('[data-en]').forEach(el=>{
     const val=el.getAttribute('data-'+l);
     if(!val) return;
