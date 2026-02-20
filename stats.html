@@ -113,41 +113,9 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
 .kpi-val.amber-val .unit { color:var(--amber); }
 .kpi-sub { font-size:10px; color:var(--text-dim); }
 
-/* Per-app breakdown */
-.breakdown { margin-bottom:56px; }
-.breakdown-title { font-family:'Syne',sans-serif; font-weight:700; font-size:20px; color:var(--white); margin-bottom:24px; }
-.app-stat-row { display:grid; grid-template-columns:180px 1fr auto; gap:20px; align-items:center; padding:20px 0; border-bottom:1px solid rgba(0,229,255,0.06); }
-.app-stat-row:last-child { border-bottom:none; }
-.app-stat-name { display:flex; align-items:center; gap:10px; }
-.app-stat-icon { width:22px; height:22px; border-radius:5px; overflow:hidden; }
-.app-stat-icon img { width:100%; height:100%; object-fit:cover; display:block; }
-.app-stat-label { font-size:12px; color:var(--white); font-weight:500; }
-.bar-track { height:6px; background:rgba(0,229,255,0.06); border-radius:0; flex:1; overflow:hidden; }
-.bar-fill { height:100%; border-radius:0; background:linear-gradient(90deg,var(--cyan),var(--green)); animation:barGrow 1.4s ease forwards; }
-@keyframes barGrow { from{width:0} }
-.app-stat-num { font-family:'Syne',sans-serif; font-weight:700; font-size:14px; color:var(--cyan); text-align:right; }
-
-/* Note on live data */
-.data-note { background:var(--navy-mid); border:1px solid rgba(0,229,255,0.10); padding:24px 28px; display:flex; align-items:flex-start; gap:16px; margin-bottom:48px; }
-.data-note-icon { font-size:20px; flex-shrink:0; }
-.data-note p { font-size:11.5px; line-height:1.8; color:var(--text-dim); }
-.data-note strong { color:var(--text); }
-
-/* Platform split */
-.platform-split { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-bottom:48px; }
-.platform-card { background:var(--navy-mid); border:1px solid rgba(0,229,255,0.08); padding:32px; }
-.platform-name { font-family:'Syne',sans-serif; font-weight:700; font-size:18px; color:var(--white); margin-bottom:6px; }
-.platform-sub { font-size:10px; color:var(--text-dim); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:20px; }
-.platform-stat { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(0,229,255,0.06); font-size:11.5px; }
-.platform-stat:last-child { border-bottom:none; }
-.platform-stat span:last-child { color:var(--cyan); font-family:'Syne',sans-serif; font-weight:700; }
-
 @media(max-width:900px){
   .page-hero,.stats-main { padding-left:20px; padding-right:20px; }
   .kpi-row { grid-template-columns:1fr 1fr; }
-  .app-stat-row { grid-template-columns:1fr 60px; }
-  .app-stat-row .bar-track { display:none; }
-  .platform-split { grid-template-columns:1fr; }
 }
 </style>
 </head>
@@ -197,78 +165,24 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
       <!-- KPI row -->
       <div class="kpi-row">
         <div class="kpi cyan">
-          <div class="kpi-lbl" data-en="Total Downloads" data-fr="Téléchargements totaux">Total Downloads</div>
-          <div class="kpi-val"><span id="k-downloads">—</span><span class="unit">+</span></div>
-          <div class="kpi-sub" data-en="Across all apps & platforms" data-fr="Toutes apps & plateformes">Across all apps & platforms</div>
-        </div>
-        <div class="kpi green">
-          <div class="kpi-lbl" data-en="Ad Revenue" data-fr="Revenus pub">Ad Revenue</div>
-          <div class="kpi-val green-val"><span class="unit">$</span><span id="k-revenue">—</span></div>
-          <div class="kpi-sub" data-en="Lifetime AdMob earnings" data-fr="Revenus AdMob cumulés">Lifetime AdMob earnings</div>
-        </div>
-        <div class="kpi amber">
-          <div class="kpi-lbl" data-en="Ad Impressions" data-fr="Impressions pub">Ad Impressions</div>
-          <div class="kpi-val amber-val"><span id="k-impressions">—</span></div>
-          <div class="kpi-sub" data-en="Total ad views served" data-fr="Total de vues pub servies">Total ad views served</div>
-        </div>
-        <div class="kpi purple">
-          <div class="kpi-lbl" data-en="Ad Clicks" data-fr="Clics pub">Ad Clicks</div>
-          <div class="kpi-val"><span id="k-clicks">—</span></div>
-          <div class="kpi-sub" data-en="Total ad interactions" data-fr="Total d'interactions pub">Total ad interactions</div>
-        </div>
-      </div>
-
-      <!-- Secondary KPIs -->
-      <div class="kpi-row" style="margin-bottom:48px;">
-        <div class="kpi cyan">
           <div class="kpi-lbl" data-en="Published Apps" data-fr="Apps publiées">Published Apps</div>
           <div class="kpi-val"><span id="k-apps">—</span><span class="unit"> apps</span></div>
           <div class="kpi-sub" data-en="Play Store + App Store" data-fr="Play Store + App Store">Play Store + App Store</div>
         </div>
         <div class="kpi green">
-          <div class="kpi-lbl" data-en="Average Rating" data-fr="Note moyenne">Average Rating</div>
-          <div class="kpi-val green-val"><span id="k-rating">—</span><span class="unit"> ★</span></div>
-          <div class="kpi-sub" data-en="Combined store rating" data-fr="Note combinée">Combined store rating</div>
+          <div class="kpi-lbl" data-en="Total Downloads" data-fr="Téléchargements totaux">Total Downloads</div>
+          <div class="kpi-val green-val"><span id="k-downloads">—</span><span class="unit">+</span></div>
+          <div class="kpi-sub" data-en="Across all apps & platforms" data-fr="Toutes apps & plateformes">Across all apps & platforms</div>
         </div>
         <div class="kpi amber">
-          <div class="kpi-lbl" data-en="Countries reached" data-fr="Pays atteints">Countries reached</div>
-          <div class="kpi-val amber-val"><span id="k-countries">—</span><span class="unit">+</span></div>
-          <div class="kpi-sub" data-en="Global distribution" data-fr="Distribution mondiale">Global distribution</div>
+          <div class="kpi-lbl" data-en="Average Rating" data-fr="Note moyenne">Average Rating</div>
+          <div class="kpi-val amber-val"><span id="k-rating">—</span><span class="unit"> ★</span></div>
+          <div class="kpi-sub" data-en="Combined store rating" data-fr="Note combinée">Combined store rating</div>
         </div>
         <div class="kpi purple">
-          <div class="kpi-lbl" data-en="Last Updated" data-fr="Dernière MàJ">Last Updated</div>
-          <div class="kpi-val" style="font-size:22px"><span id="k-updated">—</span></div>
-          <div class="kpi-sub" data-en="stats-data.json" data-fr="stats-data.json">stats-data.json</div>
-        </div>
-      </div>
-
-      <!-- Data note -->
-      <div class="data-note">
-        <div class="data-note-icon">ℹ️</div>
-        <p data-en="<strong>About these numbers:</strong> All data is sourced from Google Play Console, App Store Connect, and AdMob. Stats are loaded from <code>stats-data.json</code> — update that file to refresh the dashboard." data-fr="<strong>À propos de ces chiffres :</strong> Toutes les données proviennent de Google Play Console, App Store Connect et AdMob. Les stats sont chargées depuis <code>stats-data.json</code> — mettez à jour ce fichier pour actualiser le tableau de bord."><strong>About these numbers:</strong> All data is sourced from Google Play Console, App Store Connect, and AdMob. Stats are loaded from <code>stats-data.json</code> — update that file to refresh the dashboard.</p>
-      </div>
-
-      <!-- Per-app breakdown -->
-      <div class="breakdown" id="app-breakdown">
-        <div class="section-label" data-en="// Breakdown by app" data-fr="// Détail par app">// Breakdown by app</div>
-      </div>
-
-      <!-- Platform split -->
-      <div class="section-label" data-en="// By platform" data-fr="// Par plateforme">// By platform</div>
-      <div class="platform-split">
-        <div class="platform-card">
-          <div class="platform-name">🤖 Google Play</div>
-          <div class="platform-sub" data-en="Android — all apps published" data-fr="Android — toutes les apps publiées">Android — all apps published</div>
-          <div class="platform-stat"><span data-en="Published apps" data-fr="Apps publiées">Published apps</span><span>3</span></div>
-          <div class="platform-stat"><span data-en="Main platform downloads" data-fr="Téléchargements plateforme principale">Main platform downloads</span><span>~30 000+</span></div>
-          <div class="platform-stat"><span data-en="Developer account" data-fr="Compte développeur">Developer account</span><span data-en="Organization ✓" data-fr="Organisation ✓">Organization ✓</span></div>
-        </div>
-        <div class="platform-card">
-          <div class="platform-name">🍎 App Store</div>
-          <div class="platform-sub" data-en="iOS — all apps published" data-fr="iOS — toutes les apps publiées">iOS — all apps published</div>
-          <div class="platform-stat"><span data-en="Published apps" data-fr="Apps publiées">Published apps</span><span>3</span></div>
-          <div class="platform-stat"><span data-en="Growing audience" data-fr="Audience en croissance">Growing audience</span><span>↑</span></div>
-          <div class="platform-stat"><span data-en="Developer account" data-fr="Compte développeur">Developer account</span><span data-en="Organization ✓" data-fr="Organisation ✓">Organization ✓</span></div>
+          <div class="kpi-lbl" data-en="Ad Impressions" data-fr="Impressions pub">Ad Impressions</div>
+          <div class="kpi-val"><span id="k-impressions">—</span></div>
+          <div class="kpi-sub" data-en="Total ad views served" data-fr="Total de vues pub servies">Total ad views served</div>
         </div>
       </div>
 
@@ -353,46 +267,16 @@ fetch('/stats-data.json')
   .then(data=>{
     const t = data.totals;
 
-    // KPI count-ups triggered on scroll
     const io2 = new IntersectionObserver(e=>{
       if(e[0].isIntersecting){
-        countUp(document.getElementById('k-downloads'), t.downloads);
-        countUp(document.getElementById('k-revenue'), t.revenue_usd, 2);
-        countUp(document.getElementById('k-impressions'), t.impressions);
-        countUp(document.getElementById('k-clicks'), t.clicks);
         countUp(document.getElementById('k-apps'), t.published_apps);
+        countUp(document.getElementById('k-downloads'), t.downloads);
         countUp(document.getElementById('k-rating'), t.average_rating, 1);
-        countUp(document.getElementById('k-countries'), t.countries);
+        countUp(document.getElementById('k-impressions'), t.impressions);
         io2.disconnect();
       }
     },{threshold:0.2});
     io2.observe(document.querySelector('.kpi-row'));
-
-    // Last updated
-    document.getElementById('k-updated').textContent = data.last_updated;
-
-    // Per-app breakdown
-    const container = document.getElementById('app-breakdown');
-    const apps = Object.values(data.apps);
-    const maxDl = Math.max(...apps.map(a=>a.downloads));
-
-    apps.forEach((app,i)=>{
-      const pct = Math.max(5, (app.downloads / maxDl) * 100);
-      const row = document.createElement('div');
-      row.className = 'app-stat-row';
-      row.innerHTML = `
-        <div class="app-stat-name">
-          <span class="app-stat-icon"><img src="${app.icon}" alt="${app.name}"></span>
-          <span class="app-stat-label">${app.name}</span>
-        </div>
-        <div class="bar-track"><div class="bar-fill" style="width:${pct.toFixed(0)}%;animation-delay:${i*0.3}s"></div></div>
-        <div class="app-stat-num">${app.downloads.toLocaleString('fr-FR')}+ &nbsp;|&nbsp; $${app.revenue_usd.toFixed(2)} &nbsp;|&nbsp; ${app.impressions.toLocaleString('fr-FR')} imp</div>
-      `;
-      container.appendChild(row);
-    });
-
-    // Re-apply language after dynamic content
-    setLang(lang);
   });
 </script>
 </body>
