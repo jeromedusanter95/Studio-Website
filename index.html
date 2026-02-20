@@ -311,8 +311,8 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
     <div>
       <div class="section-label" data-en="// My approach" data-fr="// Mon approche">// My approach</div>
       <h2 class="services-heading" data-en="How I <em>work</em>" data-fr="Ma façon <em>de travailler</em>">How I <em>work</em></h2>
-      <p class="services-sub" data-en="7 years building Android apps in very different environments. That's what shaped how I work today." data-fr="7 ans à construire des apps Android dans des environnements très différents. C'est ce qui a forgé ma façon de travailler aujourd'hui.">
-        7 years building Android apps in very different environments. That's what shaped how I work today.
+      <p class="services-sub" data-en="I build Android apps the way I build my own products: pragmatic, scalable, and business-driven." data-fr="Je construis des apps Android comme je construis mes propres produits : pragmatique, scalable, et orienté business.">
+        I build Android apps the way I build my own products: pragmatic, scalable, and business-driven.
       </p>
       <div class="avail-badge"><span class="live-dot"></span> <span data-en="Available for missions" data-fr="Disponible pour missions">Available for missions</span></div>
     </div>
@@ -428,9 +428,9 @@ document.addEventListener('mousemove',e=>{
 })();
 
 // ── i18n ──
-let lang = localStorage.getItem('lang')||(navigator.language.startsWith('fr')?'fr':'en');
+let lang = localStorage.getItem('lang_pref')||(navigator.language.startsWith('fr')?'fr':'en');
 function setLang(l){
-  lang=l; localStorage.setItem('lang',l);
+  lang=l; localStorage.setItem('lang_pref',l);
   document.querySelectorAll('[data-en]').forEach(el=>{
     const val=el.getAttribute('data-'+l);
     if(!val) return;
