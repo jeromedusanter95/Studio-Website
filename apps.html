@@ -226,7 +226,7 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
         <div class="app-info">
           <div class="app-badge" data-en="Game · Puzzle" data-fr="Jeu · Puzzle">Game · Puzzle</div>
           <h2 class="app-title">Parallel Hearts</h2>
-          <p class="app-tagline" data-en="Inspired by the classic Game Boy title Binary Land. Control two characters simultaneously and guide them through 50 increasingly tricky levels. A unique dual-control puzzle experience." data-fr="Inspiré du classique Game Boy Binary Land. Contrôlez deux personnages simultanément et guidez-les à travers 50 niveaux de plus en plus ardus. Une expérience de puzzle à double contrôle unique.">Inspired by the classic Game Boy title Binary Land. Control two characters simultaneously and guide them through 50 increasingly tricky levels. A unique dual-control puzzle experience.</p>
+          <p class="app-tagline" data-en="Inspired by the classic NES title Binary Land. Control two characters simultaneously and guide them through 50 increasingly tricky levels. A unique dual-control puzzle experience with an old-school arcade feel." data-fr="Inspiré du classique NES Binary Land. Contrôlez deux personnages simultanément et guidez-les à travers 50 niveaux de plus en plus ardus. Une expérience de puzzle à double contrôle unique avec une ambiance arcade rétro.">Inspired by the classic NES title Binary Land. Control two characters simultaneously and guide them through 50 increasingly tricky levels. A unique dual-control puzzle experience with an old-school arcade feel.</p>
           <div class="app-meta">
             <div class="meta-item">
               <div class="meta-lbl" data-en="Downloads" data-fr="Téléchargements">Downloads</div>
@@ -327,9 +327,9 @@ document.addEventListener('mousemove',e=>{
 })();
 
 // ── i18n ──
-let lang = localStorage.getItem('lang')||(navigator.language.startsWith('fr')?'fr':'en');
+let lang = localStorage.getItem('lang_pref')||(navigator.language.startsWith('fr')?'fr':'en');
 function setLang(l){
-  lang=l; localStorage.setItem('lang',l);
+  lang=l; localStorage.setItem('lang_pref',l);
   document.querySelectorAll('[data-en]').forEach(el=>{
     const val=el.getAttribute('data-'+l);
     if(!val) return;
