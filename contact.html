@@ -187,7 +187,7 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
               <div class="contact-method-val">Jérôme Dusanter's Studio</div>
             </div>
           </a>
-          <a href="#" class="contact-method">
+          <a href="https://www.linkedin.com/in/j%C3%A9r%C3%B4me-dusanter-265289111/" target="_blank" class="contact-method">
             <div class="contact-method-icon">💼</div>
             <div class="contact-method-content">
               <div class="contact-method-lbl">LinkedIn</div>
@@ -213,7 +213,10 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
       <div class="contact-form" id="contactForm">
         <div class="form-title"><span class="live-dot"></span> <span data-en="Send a message" data-fr="Envoyer un message">Send a message</span></div>
 
-        <form id="theForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <form id="theForm" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="1c2d82c5-7782-472d-9d1b-1c868680abad">
+          <input type="hidden" name="subject" value="New contact from jeromedusanter.com">
+          <input type="hidden" name="from_name" value="Studio Website">
           <div class="form-row">
             <div class="form-group">
               <label data-en="First name" data-fr="Prénom">First name</label>
@@ -328,14 +331,15 @@ function countUp(el,target,decimals=0,dur=1800){
 
 </script>
 <script>
-// Form submit with Formspree (replace YOUR_FORM_ID on formspree.io)
+// Form submit with Web3Forms
 document.getElementById('theForm').addEventListener('submit', async function(e){
   e.preventDefault();
   const btn = this.querySelector('button[type=submit]');
   btn.textContent = '...';
   try {
     const res = await fetch(this.action, { method:'POST', body:new FormData(this), headers:{'Accept':'application/json'} });
-    if(res.ok){
+    const data = await res.json();
+    if(data.success){
       this.style.display='none';
       document.getElementById('formSuccess').style.display='block';
     } else {
