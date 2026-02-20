@@ -256,15 +256,6 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
 
       <div class="stat-row">
         <div>
-          <div class="stat-lbl" data-en="Years of Experience" data-fr="Ans d'expérience">Years of Experience</div>
-          <div class="stat-val"><span id="cnt-yrs">0</span><span class="unit"> yrs</span></div>
-          <div class="stat-bar"><div class="stat-bar-fill" style="width:90%;animation-delay:0.6s"></div></div>
-        </div>
-        <div class="stat-trend">Since<br>2019</div>
-      </div>
-
-      <div class="stat-row">
-        <div>
           <div class="stat-lbl" data-en="Avg. Store Rating" data-fr="Note moyenne">Avg. Store Rating</div>
           <div class="stat-val">4<span class="unit">.7 ★</span></div>
           <div class="stat-bar"><div class="stat-bar-fill" style="width:94%;animation-delay:0.9s;background:linear-gradient(90deg,var(--amber),var(--green))"></div></div>
@@ -488,7 +479,6 @@ const statObs = new IntersectionObserver(entries=>{
   if(entries[0].isIntersecting){
     countUp(document.getElementById('cnt-dl'), 30000);
     countUp(document.getElementById('cnt-apps'), 3);
-    countUp(document.getElementById('cnt-yrs'), 7);
     statObs.disconnect();
   }
 },{threshold:0.3});
