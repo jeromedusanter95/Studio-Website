@@ -422,7 +422,7 @@ document.addEventListener('mousemove',e=>{
 })();
 
 // ── i18n ──
-let lang = localStorage.getItem('lang')||'en';
+let lang = localStorage.getItem('lang')||(navigator.language.startsWith('fr')?'fr':'en');
 function setLang(l){
   lang=l; localStorage.setItem('lang',l);
   document.querySelectorAll('[data-en]').forEach(el=>{
