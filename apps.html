@@ -124,13 +124,6 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
 .app-more-link { font-size:10.5px; color:var(--cyan); text-decoration:none; letter-spacing:0.08em; transition:opacity 0.2s; }
 .app-more-link:hover { opacity:0.7; }
 
-/* 4th app teaser */
-.coming-soon { background:var(--navy-mid); border:1px solid rgba(0,229,255,0.12); padding:48px; display:flex; align-items:center; gap:32px; margin-top:48px; }
-.cs-icon { font-size:48px; }
-.cs-content {}
-.cs-title { font-family:'Syne',sans-serif; font-weight:800; font-size:24px; color:var(--white); margin-bottom:8px; }
-.cs-desc { font-size:12px; color:var(--text-dim); line-height:1.7; }
-.cs-badge { display:inline-flex; align-items:center; gap:6px; font-size:9px; letter-spacing:0.18em; text-transform:uppercase; color:var(--amber); border:1px solid rgba(255,184,0,0.25); padding:5px 12px; margin-top:14px; }
 
 @media(max-width:900px){
   .page-hero,.apps-main { padding-left:20px; padding-right:20px; }
@@ -138,7 +131,7 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
   .app-count { display:none; }
   .app-big-card { grid-template-columns:1fr; gap:28px; }
   .app-big-card.reverse { direction:ltr; }
-  .coming-soon { flex-direction:column; align-items:flex-start; }
+
 }
 </style>
 </head>
@@ -177,7 +170,7 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
         <h1 data-en="Apps I <em>ship</em>." data-fr="Mes apps <em>publiées</em>.">Apps I <em>ship</em>.</h1>
         <p data-en="100% built solo — from the first line of code to the store." data-fr="100% développées en solo — de la première ligne de code jusqu'au store.">100% built solo — from the first line of code to the store.</p>
       </div>
-      <div class="app-count">03</div>
+      <div class="app-count">04</div>
     </div>
   </div>
 
@@ -287,13 +280,40 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
         </div>
       </div>
 
-      <!-- COMING SOON -->
-      <div class="coming-soon">
-        <div class="cs-icon">⚙️</div>
-        <div class="cs-content">
-          <div class="cs-title" data-en="4th app — Coming soon" data-fr="4ème app — Bientôt disponible">4th app — Coming soon</div>
-          <p class="cs-desc" data-en="A new app is currently in development. Stay tuned." data-fr="Une nouvelle app est en cours de développement. Restez connectés.">A new app is currently in development. Stay tuned.</p>
-          <div class="cs-badge">⚡ <span data-en="In development" data-fr="En développement">In development</span></div>
+      <!-- WHO PICKED WHO -->
+      <div class="app-big-card reverse" id="who-picked-who">
+        <div class="app-visual" style="border-color:rgba(255,184,0,0.3)">
+          <div class="app-visual-bg"><img src="/who_picked_who_icon.jpg" alt=""></div>
+          <div class="app-visual-icon"><img src="/who_picked_who_icon.jpg" alt="Who Picked Who"></div>
+        </div>
+        <div class="app-info">
+          <div class="app-badge" data-en="Game · Party & Bluffing" data-fr="Jeu · Soirée & Bluff">Game · Party & Bluffing</div>
+          <h2 class="app-title">Who Picked Who</h2>
+          <p class="app-tagline" data-en="A party bluffing and guessing game for 3+ players. Pick a famous character in secret, then bluff and deduce your way to victory. Three game modes, 1000+ characters, and endless fun for house parties, family nights, and road trips." data-fr="Un jeu de bluff et de devinettes pour 3 joueurs et plus. Choisissez un personnage célèbre en secret, puis bluffez et déduisez pour gagner. Trois modes de jeu, 1000+ personnages et du fun sans fin pour les soirées, les réunions de famille et les voyages.">A party bluffing and guessing game for 3+ players. Pick a famous character in secret, then bluff and deduce your way to victory. Three game modes, 1000+ characters, and endless fun for house parties, family nights, and road trips.</p>
+          <div class="app-meta">
+            <div class="meta-item">
+              <div class="meta-lbl" data-en="Players" data-fr="Joueurs">Players</div>
+              <div class="meta-val cyan">3+</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-lbl" data-en="Modes" data-fr="Modes">Modes</div>
+              <div class="meta-val">3</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-lbl">Platform</div>
+              <div class="meta-val" style="font-size:13px">Android + iOS</div>
+            </div>
+          </div>
+          <div class="app-store-links">
+            <a href="https://play.google.com/store/apps/details?id=com.jeromedusanter.whopickedwho" target="_blank" class="btn-store">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5v-17c0-.83 1-.97 1.45-.42l11 8.5a.5.5 0 010 .84l-11 8.5C4 21.47 3 21.33 3 20.5z"/></svg>
+              Google Play
+            </a>
+            <a href="https://apps.apple.com/us/app/who-picked-who/id6759918364" target="_blank" class="btn-store">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83"/></svg>
+              App Store
+            </a>
+          </div>
         </div>
       </div>
 
