@@ -79,8 +79,23 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
 
 @keyframes fadeUp { to{opacity:1;transform:translateY(0)} }
 @keyframes fadeIn { to{opacity:1} }
-@media(max-width:900px) {
+
+.nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:8px;}
+.nav-burger span{display:block;width:20px;height:2px;background:var(--cyan);transition:all 0.3s;}
+.mobile-nav{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:rgba(5,12,26,0.96);backdrop-filter:blur(24px);border-bottom:1px solid rgba(0,229,255,0.07);z-index:99;padding:20px;}
+.mobile-nav a{display:block;padding:14px 0;color:var(--text-dim);text-decoration:none;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid rgba(0,229,255,0.07);transition:color 0.2s;}
+.mobile-nav a:last-child{border-bottom:none;}
+.mobile-nav a.active,.mobile-nav a:hover{color:var(--cyan);}
+
+@media(max-width:900px){
   nav{padding:0 20px;} .nav-links{display:none;}
+  .nav-burger{display:flex;}
+  .mobile-nav.open{display:block;}
+  .cursor,.cursor-ring{display:none;}
+  body,.btn-primary,.btn-outline,.btn-store,.lang-btn{cursor:auto;}
+  .blob-1{width:300px;height:300px;} .blob-2{width:200px;height:200px;}
+  .btn-store{padding:14px 20px;}
+  .lang-btn{padding:6px 12px;}
   footer{grid-template-columns:1fr;text-align:center;padding:28px 20px;gap:12px;} .footer-links{justify-content:center;}
 }
 
@@ -161,8 +176,16 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
       <button class="lang-btn active" data-lang="en">EN</button>
       <button class="lang-btn" data-lang="fr">FR</button>
     </div>
+    <button class="nav-burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="/" data-en="Home" data-fr="Accueil">Home</a>
+  <a href="/apps.html" data-en="Apps" data-fr="Apps">Apps</a>
+  <a href="/freelance.html" data-en="Freelance" data-fr="Freelance">Freelance</a>
+  <a href="/stats.html">Stats</a>
+  <a href="/contact.html" data-en="Contact" data-fr="Contact">Contact</a>
+</div>
 
 <div class="page-wrap">
   <div class="contact-wrap">
@@ -317,9 +340,15 @@ function setLang(l){
 document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
 setLang(lang);
 
+// ── Mobile nav ──
+const burger=document.getElementById('burger');
+const mobileNav=document.getElementById('mobileNav');
+burger.addEventListener('click',()=>mobileNav.classList.toggle('open'));
+document.querySelectorAll('.mobile-nav a').forEach(a=>a.addEventListener('click',()=>mobileNav.classList.remove('open')));
+
 // ── Nav active ──
 const path = window.location.pathname;
-document.querySelectorAll('.nav-links a').forEach(a=>{
+document.querySelectorAll('.nav-links a, .mobile-nav a').forEach(a=>{
   const href=a.getAttribute('href');
   if(href===path||(href!=='/'&&path.startsWith(href))) a.classList.add('active');
 });
