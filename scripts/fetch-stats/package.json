@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Daily fetcher for Studio stats (Play, App Store Connect, AdMob)",
+  "description": "Daily fetcher for Studio stats (Play bulk reports + App Store Connect)",
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
-    "googleapis": "^144.0.0",
+    "@google-cloud/storage": "^7.14.0",
     "jsonwebtoken": "^9.0.2"
   }
 }

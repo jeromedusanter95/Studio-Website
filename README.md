@@ -2,8 +2,8 @@
 
 Static HTML site for Jérôme Dusanter's Studio. The download counts on
 `index.html`, `apps.html`, and `stats.html` are updated once a day by a
-GitHub Action that pulls real numbers from Google Play and App Store
-Connect.
+GitHub Action that reads real numbers from Google Play's bulk reports
+bucket and App Store Connect's sales reports.
 
 This README only covers the automated stats setup. The site itself is plain
 HTML and needs no build step.
@@ -17,8 +17,8 @@ GitHub Actions (every day at 06:00 UTC)
         │
         ▼
 scripts/fetch-stats/index.js
-   ├── Google Play Developer Reporting API (Android installs)
-   └── App Store Connect Sales Reports     (iOS installs)
+   ├── Google Play bulk reports bucket  (Android installs, CSV in GCS)
+   └── App Store Connect Sales Reports  (iOS installs, gzipped TSV)
         │
         ▼
 stats-history.json   ← appended (idempotent: never refetches a day)
@@ -53,29 +53,44 @@ your store links in `apps.html`).
 All secrets go here: **GitHub repo → Settings → Secrets and variables →
 Actions → New repository secret**.
 
-### 1. Google Service Account (used for Google Play)
+### 1. Google Service Account (used for Google Play bulk reports)
 
 1. Open https://console.cloud.google.com/ and create a new project, e.g.
-   `studio-stats`.
-2. **APIs & Services → Library**, enable **Google Play Developer Reporting
-   API**.
-3. **IAM & Admin → Service Accounts → Create service account**. Name it
+   `studio-stats`. No APIs need to be enabled — the service account only
+   reads files from a Google Cloud Storage bucket owned by Play.
+2. **IAM & Admin → Service Accounts → Create service account**. Name it
    `studio-stats-bot`. No GCP roles needed. Click **Done**.
-4. Open the service account → **Keys → Add key → Create new key → JSON →
+3. Open the service account → **Keys → Add key → Create new key → JSON →
    Create**. A `.json` file downloads. Keep it secret.
-5. Copy the **entire contents** of the file into a GitHub secret named
+4. Copy the **entire contents** of the file into a GitHub secret named
    **`GOOGLE_SERVICE_ACCOUNT_JSON`**.
 
-### 2. Play Console permission
+### 2. Play Console permission + bulk reports bucket
 
-1. Open Play Console → **Users and permissions → Invite new users**.
-2. Email: paste the service account email (looks like
-   `studio-stats-bot@studio-stats.iam.gserviceaccount.com`).
-3. **Account permissions**: tick **View app information and download bulk
-   reports**.
-4. **App permissions**: tick all 4 apps (Space Blaster, Parallel Hearts,
-   Wishbone Snap, Who Picked Who).
-5. **Send invite**. The service account auto-accepts.
+Google Play does not expose daily install counts via a REST API. Instead
+it writes monthly CSV files to a private Google Cloud Storage bucket
+(`pubsite_prod_XXXXXXXXXXXXXXXXXXXX`) that only your developer account
+can read. Granting the service account access happens inside Play Console,
+not in GCP.
+
+1. Play Console → **Users and permissions → Invite new users**.
+2. Email: paste the service account email
+   (`studio-stats-bot@studio-stats.iam.gserviceaccount.com`).
+3. **Account permissions** tab → scroll down and tick
+   **View app information and download bulk reports (read only)**.
+   This is the only permission the fetcher needs.
+4. **App permissions** tab → **Add apps** → tick all 4 apps.
+5. **Save changes** (top right). The service account auto-accepts.
+
+> Propagation can take a few minutes to a few hours the first time. If
+> the workflow fails with a 403 on the bucket read, wait and retry later.
+
+6. Find your bulk reports bucket name: Play Console → back to **All apps**
+   → left sidebar **Download reports → Statistics** → click any report →
+   look for **Copy Cloud Storage URI**. The value looks like
+   `gs://pubsite_prod_XXXXXXXXXXXXXXXXXXXX`. Strip the `gs://` prefix.
+7. Add it as a GitHub secret named **`PLAY_BULK_REPORTS_BUCKET`**. Value
+   is just the bucket name (e.g. `pubsite_prod_4954539797581626292`).
 
 ### 3. App Store Connect API key
 
@@ -101,6 +116,7 @@ Actions → New repository secret**.
 | Secret | Required? |
 |---|---|
 | `GOOGLE_SERVICE_ACCOUNT_JSON` | yes |
+| `PLAY_BULK_REPORTS_BUCKET` | yes |
 | `ASC_KEY_ID` | yes |
 | `ASC_ISSUER_ID` | yes |
 | `ASC_PRIVATE_KEY` | yes |
@@ -127,8 +143,13 @@ Actions → New repository secret**.
 If a source keeps failing, the Action logs are the first place to look. The
 most common issues:
 
-- **Play `403`** → the service account isn't invited to Play Console yet
-  (step 2 above) or doesn't have the right permission ticked.
+- **Play `403` on bucket read** → the service account isn't invited to
+  Play Console yet (step 2 above), doesn't have the **Account permissions
+  → View app information and download bulk reports** checkbox ticked, or
+  Play Console hasn't propagated the grant yet (can take hours).
+- **Play `does not exist (yet)`** → normal for the current day or apps
+  with no installs in a month; the file only appears once Play has
+  generated that month's report. Try again the next day.
 - **App Store `401`** → JWT issue. Most likely `ASC_PRIVATE_KEY` is missing
   the `BEGIN/END` lines or has been corrupted by line ending changes.
   Re-paste it from the original `.p8` file.
@@ -148,6 +169,7 @@ npm install
 
 # Pretend you're CI: export the same env vars.
 export GOOGLE_SERVICE_ACCOUNT_JSON="$(cat /path/to/service-account.json)"
+export PLAY_BULK_REPORTS_BUCKET="pubsite_prod_XXXXXXXXXXXXXXXXXXXX"
 export ASC_KEY_ID="XXXXXXXXXX"
 export ASC_ISSUER_ID="00000000-0000-0000-0000-000000000000"
 export ASC_PRIVATE_KEY="$(cat /path/to/AuthKey_XXXXXXXXXX.p8)"
@@ -178,9 +200,8 @@ python3 -m http.server 8000
 | `stats-history.json` | Per-day raw data from each API. The "database". Append-only and idempotent. |
 | `scripts/fetch-stats/index.js` | Orchestrator. Runs both sources, writes both files. |
 | `scripts/fetch-stats/storage.js` | Read/write history, aggregate, app slug list, manual `average_rating` & `impressions`. |
-| `scripts/fetch-stats/sources/play.js` | Google Play Developer Reporting API. |
+| `scripts/fetch-stats/sources/play.js` | Reads Google Play bulk reports CSVs from Cloud Storage. |
 | `scripts/fetch-stats/sources/appstore.js` | App Store Connect Sales Reports. |
-| `scripts/fetch-stats/sources/google-auth.js` | Shared Google OAuth2 helper. |
 | `.github/workflows/daily-stats.yml` | The cron job (06:00 UTC daily). |
 | `_config.yml` | Tells GitHub Pages not to publish `scripts/`, `.github/`, `README.md`. |
 
