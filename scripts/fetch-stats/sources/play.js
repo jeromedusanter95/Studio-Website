@@ -108,8 +108,6 @@ export async function fetchPlay(dates) {
         platform: 'android',
         app_id: slug,
         downloads,
-        impressions: 0,
-        estimated_earnings_usd: 0,
       });
     }
   }

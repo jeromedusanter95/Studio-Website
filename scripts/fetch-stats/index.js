@@ -1,7 +1,6 @@
 import { loadHistory, saveHistory, saveAggregated, needsFetch } from './storage.js';
 import { fetchPlay } from './sources/play.js';
 import { fetchAppStore } from './sources/appstore.js';
-import { fetchAdMob } from './sources/admob.js';
 
 // 3-day rolling window to accommodate App Store Connect's ~24h processing
 // lag. Per-source idempotency in storage.needsFetch ensures re-runs are
@@ -46,7 +45,6 @@ async function main() {
   const results = await Promise.all([
     runSource('play',     fetchPlay,     history, dates),
     runSource('appstore', fetchAppStore, history, dates),
-    runSource('admob',    fetchAdMob,    history, dates),
   ]);
   const newRows = results.flat();
 

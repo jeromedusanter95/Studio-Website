@@ -16,9 +16,12 @@ export const APP_SLUGS = [
   'who_picked_who',
 ];
 
-// Average store rating has no clean cross-store API. Edit by hand when
-// you want it to change.
+// Hand-maintained values with no API source. Edit when you want them to
+// change. Ad impressions used to come from the AdMob Reporting API but
+// AdMob no longer exposes self-service API access in most accounts, so
+// the number on the stats page is a manual total you bump occasionally.
 export const MANUAL_AVERAGE_RATING = 4.7;
+export const MANUAL_IMPRESSIONS = 97473;
 
 export function loadHistory() {
   try {
@@ -54,7 +57,7 @@ export function needsFetch(history, source, date) {
 export function saveAggregated(history) {
   const totals = {
     downloads: 0,
-    impressions: 0,
+    impressions: MANUAL_IMPRESSIONS,
     published_apps: APP_SLUGS.length,
     average_rating: MANUAL_AVERAGE_RATING,
   };
@@ -63,8 +66,7 @@ export function saveAggregated(history) {
   for (const slug of APP_SLUGS) apps[slug] = { downloads: 0 };
 
   for (const row of history) {
-    totals.downloads   += row.downloads   || 0;
-    totals.impressions += row.impressions || 0;
+    totals.downloads += row.downloads || 0;
     if (row.app_id && apps[row.app_id]) {
       apps[row.app_id].downloads += row.downloads || 0;
     }

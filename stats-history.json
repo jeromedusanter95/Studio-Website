@@ -4,26 +4,20 @@
     "date": "2026-02-19",
     "platform": "android",
     "app_id": "space_blaster",
-    "downloads": 30000,
-    "impressions": 96654,
-    "estimated_earnings_usd": 344.12
+    "downloads": 30000
   },
   {
     "source": "baseline",
     "date": "2026-02-19",
     "platform": "android",
     "app_id": "parallel_hearts",
-    "downloads": 100,
-    "impressions": 142,
-    "estimated_earnings_usd": 0.90
+    "downloads": 100
   },
   {
     "source": "baseline",
     "date": "2026-02-19",
     "platform": "android",
     "app_id": "wishbone_snap",
-    "downloads": 50,
-    "impressions": 677,
-    "estimated_earnings_usd": 0.99
+    "downloads": 50
   }
 ]

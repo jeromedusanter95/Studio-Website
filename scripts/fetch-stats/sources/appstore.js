@@ -120,8 +120,6 @@ function parseTsv(tsv, appIdMap, date) {
     platform: 'ios',
     app_id: slug,
     downloads: units,
-    impressions: 0,
-    estimated_earnings_usd: 0,
   }));
 }
 
