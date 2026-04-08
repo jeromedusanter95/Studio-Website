@@ -3,13 +3,6 @@
     "source": "baseline",
     "date": "2026-02-19",
     "platform": "android",
-    "app_id": "space_blaster",
-    "downloads": 30000
-  },
-  {
-    "source": "baseline",
-    "date": "2026-02-19",
-    "platform": "android",
     "app_id": "parallel_hearts",
     "downloads": 100
   },
@@ -17,7 +10,42 @@
     "source": "baseline",
     "date": "2026-02-19",
     "platform": "android",
+    "app_id": "space_blaster",
+    "downloads": 30000
+  },
+  {
+    "source": "baseline",
+    "date": "2026-02-19",
+    "platform": "android",
     "app_id": "wishbone_snap",
     "downloads": 50
+  },
+  {
+    "source": "appstore",
+    "date": "2026-04-05",
+    "platform": "ios",
+    "app_id": "space_blaster",
+    "downloads": 77
+  },
+  {
+    "source": "appstore",
+    "date": "2026-04-05",
+    "platform": "ios",
+    "app_id": "wishbone_snap",
+    "downloads": 1
+  },
+  {
+    "source": "appstore",
+    "date": "2026-04-06",
+    "platform": "ios",
+    "app_id": "space_blaster",
+    "downloads": 40
+  },
+  {
+    "source": "appstore",
+    "date": "2026-04-07",
+    "platform": "ios",
+    "app_id": "space_blaster",
+    "downloads": 36
   }
 ]
