@@ -5,10 +5,10 @@ import { Storage } from '@google-cloud/storage';
 // new app, update this map. The PLAY_PACKAGE_NAMES env var can override this
 // using the format "package:slug,package:slug,..." but it is optional.
 const DEFAULT_PACKAGE_MAP = {
-  'com.jeromedusanter.space_impact':    'space_blaster',
-  'com.jeromedusanter.parallel_hearts': 'parallel_hearts',
-  'com.jeromedusanter.wishbone':        'wishbone_snap',
-  'com.jeromedusanter.whopickedwho':    'who_picked_who',
+  'com.jeromedusanter.space_impact':   'space_blaster',
+  'com.jeromedusanter.parallelhearts': 'parallel_hearts',
+  'com.jeromedusanter.wishbone':       'wishbone_snap',
+  'com.jeromedusanter.whopickedwho':   'who_picked_who',
 };
 
 // Preferred column name for the daily per-day install count, in order of
