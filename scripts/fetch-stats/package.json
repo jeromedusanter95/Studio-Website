@@ -1,0 +1,14 @@
+{
+  "name": "fetch-stats",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Daily fetcher for Studio stats (Play, App Store Connect, AdMob)",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "googleapis": "^144.0.0",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

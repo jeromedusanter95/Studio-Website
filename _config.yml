@@ -1,0 +1,6 @@
+exclude:
+  - scripts
+  - README.md
+  - .github
+  - node_modules
+  - CLAUDE.md

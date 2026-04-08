@@ -1,0 +1,5 @@
+scripts/fetch-stats/node_modules/
+scripts/fetch-stats/.env
+.DS_Store
+CLAUDE.md
+.claude/

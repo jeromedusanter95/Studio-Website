@@ -215,7 +215,7 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
           <div class="app-meta">
             <div class="meta-item">
               <div class="meta-lbl" data-en="Downloads" data-fr="Téléchargements">Downloads</div>
-              <div class="meta-val cyan">30 000+</div>
+              <div class="meta-val cyan" data-app-dl="space_blaster">30 000+</div>
             </div>
             <div class="meta-item">
               <div class="meta-lbl">Platform</div>
@@ -248,7 +248,7 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
           <div class="app-meta">
             <div class="meta-item">
               <div class="meta-lbl" data-en="Downloads" data-fr="Téléchargements">Downloads</div>
-              <div class="meta-val cyan">100+</div>
+              <div class="meta-val cyan" data-app-dl="parallel_hearts">100+</div>
             </div>
             <div class="meta-item">
               <div class="meta-lbl" data-en="Levels" data-fr="Niveaux">Levels</div>
@@ -285,7 +285,7 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
           <div class="app-meta">
             <div class="meta-item">
               <div class="meta-lbl" data-en="Downloads" data-fr="Téléchargements">Downloads</div>
-              <div class="meta-val cyan">50+</div>
+              <div class="meta-val cyan" data-app-dl="wishbone_snap">50+</div>
             </div>
             <div class="meta-item">
               <div class="meta-lbl">Platform</div>
@@ -421,6 +421,18 @@ function countUp(el,target,decimals=0,dur=1800){
   },16);
 }
 
+</script>
+<script>
+// Load live per-app download counts from /stats-data.json (updated daily by
+// GitHub Actions). Silently keeps the hardcoded fallback if the fetch fails.
+fetch('/stats-data.json').then(r=>r.json()).then(data=>{
+  const apps = data.apps || {};
+  document.querySelectorAll('[data-app-dl]').forEach(el=>{
+    const slug = el.getAttribute('data-app-dl');
+    const n = apps[slug]?.downloads;
+    if(typeof n === 'number') el.textContent = n.toLocaleString('fr-FR') + '+';
+  });
+}).catch(()=>{});
 </script>
 </body>
 </html>
