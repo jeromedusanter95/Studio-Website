@@ -4,3 +4,4 @@ exclude:
   - .github
   - node_modules
   - CLAUDE.md
+  - docs
