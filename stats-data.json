@@ -1,14 +1,14 @@
 {
-  "last_updated": "2026-04-11",
+  "last_updated": "2026-04-12",
   "totals": {
-    "downloads": 30353,
+    "downloads": 30380,
     "impressions": 97473,
     "published_apps": 4,
     "average_rating": 4.7
   },
   "apps": {
     "space_blaster": {
-      "downloads": 30202
+      "downloads": 30229
     },
     "parallel_hearts": {
       "downloads": 100
