@@ -138,5 +138,26 @@
     "platform": "ios",
     "app_id": "who_picked_who",
     "downloads": 3
+  },
+  {
+    "source": "appstore",
+    "date": "2026-04-18",
+    "platform": "ios",
+    "app_id": "space_blaster",
+    "downloads": 70
+  },
+  {
+    "source": "appstore",
+    "date": "2026-04-18",
+    "platform": "ios",
+    "app_id": "who_picked_who",
+    "downloads": 1
+  },
+  {
+    "source": "appstore",
+    "date": "2026-04-18",
+    "platform": "ios",
+    "app_id": "wishbone_snap",
+    "downloads": 1
   }
 ]
