@@ -159,5 +159,12 @@
     "platform": "ios",
     "app_id": "wishbone_snap",
     "downloads": 1
+  },
+  {
+    "source": "appstore",
+    "date": "2026-04-19",
+    "platform": "ios",
+    "app_id": "space_blaster",
+    "downloads": 56
   }
 ]
