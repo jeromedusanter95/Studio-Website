@@ -166,5 +166,12 @@
     "platform": "ios",
     "app_id": "space_blaster",
     "downloads": 56
+  },
+  {
+    "source": "appstore",
+    "date": "2026-04-20",
+    "platform": "ios",
+    "app_id": "space_blaster",
+    "downloads": 45
   }
 ]
