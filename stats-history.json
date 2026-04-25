@@ -187,5 +187,19 @@
     "platform": "ios",
     "app_id": "space_blaster",
     "downloads": 35
+  },
+  {
+    "source": "appstore",
+    "date": "2026-04-23",
+    "platform": "ios",
+    "app_id": "parallel_hearts",
+    "downloads": 1
+  },
+  {
+    "source": "appstore",
+    "date": "2026-04-23",
+    "platform": "ios",
+    "app_id": "space_blaster",
+    "downloads": 36
   }
 ]
