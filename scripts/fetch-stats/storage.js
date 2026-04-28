@@ -21,7 +21,7 @@ export const APP_SLUGS = [
 // AdMob no longer exposes self-service API access in most accounts, so
 // the number on the stats page is a manual total you bump occasionally.
 export const MANUAL_AVERAGE_RATING = 4.7;
-export const MANUAL_IMPRESSIONS = 97473;
+export const MANUAL_IMPRESSIONS = 118561;
 
 export function loadHistory() {
   try {
