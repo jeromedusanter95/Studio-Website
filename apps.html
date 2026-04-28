@@ -423,8 +423,8 @@ function countUp(el,target,decimals=0,dur=1800){
 
 </script>
 <script>
-// Load live per-app download counts from /stats-data.json (updated daily by
-// GitHub Actions). Silently keeps the hardcoded fallback if the fetch fails.
+// Load per-app download counts from /stats-data.json. Silently keeps the
+// hardcoded fallback if the fetch fails.
 fetch('/stats-data.json').then(r=>r.json()).then(data=>{
   const apps = data.apps || {};
   document.querySelectorAll('[data-app-dl]').forEach(el=>{
