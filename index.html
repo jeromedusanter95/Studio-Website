@@ -309,21 +309,21 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
         <div class="app-icon"><img src="/space_blaster_icon.png" alt="Space Blaster"></div>
         <div class="app-name">Space Blaster</div>
         <p class="app-desc" data-en="Remake of the iconic Nokia Space Impact from the 2000s. Retro shooter, modern polish." data-fr="Remake du légendaire Space Impact de Nokia des années 2000. Shooter rétro, finition moderne.">Remake of the iconic Nokia Space Impact from the 2000s. Retro shooter, modern polish.</p>
-        <div class="app-dl"><span class="app-dl-num" data-app-dl="space_blaster">30 000</span> <span data-en="downloads" data-fr="téléchargements">downloads</span> &nbsp;↓</div>
+        <div class="app-dl"><span class="app-dl-num" data-app-dl="space_blaster">—</span> <span data-en="downloads" data-fr="téléchargements">downloads</span> &nbsp;↓</div>
       </a>
 
       <a href="/apps.html#parallel-hearts" class="app-card">
         <div class="app-icon"><img src="/parallel_hearts_icon.png" alt="Parallel Hearts"></div>
         <div class="app-name">Parallel Hearts</div>
         <p class="app-desc" data-en="Game Boy-inspired puzzle game. Control two characters simultaneously across 50 levels." data-fr="Jeu de puzzle inspiré Game Boy. Contrôlez deux personnages simultanément sur 50 niveaux.">Game Boy-inspired puzzle game. Control two characters simultaneously across 50 levels.</p>
-        <div class="app-dl"><span class="app-dl-num" data-app-dl="parallel_hearts">100</span> <span data-en="downloads" data-fr="téléchargements">downloads</span> &nbsp;↓</div>
+        <div class="app-dl"><span class="app-dl-num" data-app-dl="parallel_hearts">—</span> <span data-en="downloads" data-fr="téléchargements">downloads</span> &nbsp;↓</div>
       </a>
 
       <a href="/apps.html#wishbone-snap" class="app-card">
         <div class="app-icon"><img src="/wishbone_snap_icon.png" alt="Wishbone Snap"></div>
         <div class="app-name">Wishbone Snap</div>
         <p class="app-desc" data-en="A digital revival of the classic wishbone-breaking tradition. Fun, simple, satisfying." data-fr="Une version digitale de la tradition du wishbone. Simple, fun et satisfaisante.">A digital revival of the classic wishbone-breaking tradition. Fun, simple, satisfying.</p>
-        <div class="app-dl"><span class="app-dl-num" data-app-dl="wishbone_snap">50</span> <span data-en="downloads" data-fr="téléchargements">downloads</span> &nbsp;↓</div>
+        <div class="app-dl"><span class="app-dl-num" data-app-dl="wishbone_snap">—</span> <span data-en="downloads" data-fr="téléchargements">downloads</span> &nbsp;↓</div>
       </a>
 
       <a href="/apps.html#who-picked-who" class="app-card">
@@ -514,32 +514,38 @@ function countUp(el,target,decimals=0,dur=1800){
 
 </script>
 <script>
-// Live numbers come from /stats-data.json (hand-maintained).
-// Set up the count-up observer synchronously with hardcoded fallback values
-// so the animation never misses its trigger if the fetch is slow, then
-// overwrite the targets when the fetch resolves.
-let totalDl = 30000;
-let totalApps = 4;
+// Single source of truth for stats: /stats-data.json. Run the count-up
+// animation only after the fetch resolves AND the panel is in view. If
+// the panel is already visible, the count-up runs as soon as the fetch
+// completes; otherwise it waits for the IntersectionObserver to fire.
+const dlEl = document.getElementById('cnt-dl');
+const appsEl = document.getElementById('cnt-apps');
 const statPanel = document.querySelector('.stat-panel');
+let stats = null;
+let panelVisible = false;
+const runCountUp = () => {
+  if (!stats || !panelVisible) return;
+  if (typeof stats.downloads === 'number') countUp(dlEl, stats.downloads);
+  if (typeof stats.published_apps === 'number') countUp(appsEl, stats.published_apps);
+};
 const statObs = new IntersectionObserver(entries=>{
   if(entries[0].isIntersecting){
-    countUp(document.getElementById('cnt-dl'), totalDl);
-    countUp(document.getElementById('cnt-apps'), totalApps);
+    panelVisible = true;
     statObs.disconnect();
+    runCountUp();
   }
 },{threshold:0.3});
 statObs.observe(statPanel);
 
 fetch('/stats-data.json').then(r=>r.json()).then(data=>{
-  const t = data.totals || {};
+  stats = data.totals || {};
   const apps = data.apps || {};
-  if(typeof t.downloads === 'number') totalDl = t.downloads;
-  if(typeof t.published_apps === 'number') totalApps = t.published_apps;
   document.querySelectorAll('[data-app-dl]').forEach(el=>{
     const slug = el.getAttribute('data-app-dl');
     const n = apps[slug]?.downloads;
     if(typeof n === 'number') el.textContent = n.toLocaleString('fr-FR');
   });
+  runCountUp();
 }).catch(()=>{});
 </script>
 </body>

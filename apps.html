@@ -215,7 +215,7 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
           <div class="app-meta">
             <div class="meta-item">
               <div class="meta-lbl" data-en="Downloads" data-fr="Téléchargements">Downloads</div>
-              <div class="meta-val cyan" data-app-dl="space_blaster">30 000+</div>
+              <div class="meta-val cyan" data-app-dl="space_blaster">—</div>
             </div>
             <div class="meta-item">
               <div class="meta-lbl">Platform</div>
@@ -248,7 +248,7 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
           <div class="app-meta">
             <div class="meta-item">
               <div class="meta-lbl" data-en="Downloads" data-fr="Téléchargements">Downloads</div>
-              <div class="meta-val cyan" data-app-dl="parallel_hearts">100+</div>
+              <div class="meta-val cyan" data-app-dl="parallel_hearts">—</div>
             </div>
             <div class="meta-item">
               <div class="meta-lbl" data-en="Levels" data-fr="Niveaux">Levels</div>
@@ -285,7 +285,7 @@ footer { border-top:1px solid rgba(0,229,255,0.07); padding:36px 56px; position:
           <div class="app-meta">
             <div class="meta-item">
               <div class="meta-lbl" data-en="Downloads" data-fr="Téléchargements">Downloads</div>
-              <div class="meta-val cyan" data-app-dl="wishbone_snap">50+</div>
+              <div class="meta-val cyan" data-app-dl="wishbone_snap">—</div>
             </div>
             <div class="meta-item">
               <div class="meta-lbl">Platform</div>
@@ -423,8 +423,7 @@ function countUp(el,target,decimals=0,dur=1800){
 
 </script>
 <script>
-// Load per-app download counts from /stats-data.json. Silently keeps the
-// hardcoded fallback if the fetch fails.
+// Single source of truth: /stats-data.json. Per-app download counts.
 fetch('/stats-data.json').then(r=>r.json()).then(data=>{
   const apps = data.apps || {};
   document.querySelectorAll('[data-app-dl]').forEach(el=>{
