@@ -10,18 +10,19 @@ want the numbers to change, then commit and push.
 
 ```json
 {
-  "last_updated": "2026-04-28",
+  "last_updated": "2026-06-23",
   "totals": {
-    "downloads": 40231,
-    "impressions": 118561,
-    "published_apps": 4,
+    "downloads": 48297,
+    "impressions": 143137,
+    "published_apps": 5,
     "average_rating": 4.7
   },
   "apps": {
-    "space_blaster":   { "downloads": 40000 },
+    "space_blaster":   { "downloads": 48000 },
     "parallel_hearts": { "downloads": 170 },
     "wishbone_snap":   { "downloads": 52 },
-    "who_picked_who":  { "downloads": 8 }
+    "who_picked_who":  { "downloads": 8 },
+    "pathzzle":        { "downloads": 0 }
   }
 }
 ```
